@@ -4,6 +4,12 @@
 """
 #Used Python 3 and Google's Speech Recognition API
 # Importing Required Modules
+
+"""
+---------------GJ's Desktop Voice Assistant---------------
+
+"""
+
 import pyttsx3
 import datetime
 import speech_recognition as sr
@@ -70,26 +76,23 @@ def takeCommand():
 
 
 def setName(startupcall=True):  # if startupcall is False it means user want to change name
-    """
-    To Set User's Name First Time or To Change Existing Name
-    """
-    if(startupcall == True): #It Means That This Function is Called First Time So We Have to Set User's Name.
+    if(startupcall == True):
         speak("Hello Sir, What's Your Name?")
     else:
         speak("Tell Me Your New Name Sir")
-    namecorrect = False 
+    namecorrect = False
     while(True):
         tname = takeCommand()
         while(True):
             speak(f"Your Name Is {tname},Right Sir?\nPlease Say Yes Or No.")
             confirm = takeCommand().lower()
-            if(confirm == "yes"):
+            if("yes" in confirm):
                 global name
                 if(startupcall == True):
                     speak("Ok Sir")
-                    name = True
+                    name = tname
+                    done = True
                     break
-                    
                 else:
                     speak("Your Name Has Been Changed Sir")
                     speak(f"Your Old Name Was {name}")
@@ -97,14 +100,14 @@ def setName(startupcall=True):  # if startupcall is False it means user want to 
 
                 name = tname
                 break
-                
-            elif(confirm == "no"):
+            elif("no" in confirm):
                 speak("Sorry Sir,Asking Again!!")
                 speak("Please Tell Again,What's Your Name Sir?")
+                tname = takeCommand()
 
             else:
                 speak("Please Say Yes or No Only...")
-        if name:
+        if done:
             break
 
 
