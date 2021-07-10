@@ -2,7 +2,7 @@
 ---------------GJ's Desktop Voice Assistant---------------
 
 """
-
+#Used Python 3 and Google's Speech Recognition API
 # Importing Required Modules
 import pyttsx3
 import datetime
@@ -15,6 +15,7 @@ import requests
 import json
 import random
 
+#Initializing
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
@@ -68,12 +69,15 @@ def takeCommand():
             return query
 
 
-def getName(startupcall=True):  # if startupcall is False it means user want to change name
-    if(startupcall == True):
+def setName(startupcall=True):  # if startupcall is False it means user want to change name
+    """
+    To Set User's Name First Time or To Change Existing Name
+    """
+    if(startupcall == True): #It Means That This Function is Called First Time So We Have to Set User's Name.
         speak("Hello Sir, What's Your Name?")
     else:
         speak("Tell Me Your New Name Sir")
-    namecorrect = False
+    namecorrect = False 
     while(True):
         tname = takeCommand()
         while(True):
@@ -85,6 +89,7 @@ def getName(startupcall=True):  # if startupcall is False it means user want to 
                     speak("Ok Sir")
                     name = True
                     break
+                    
                 else:
                     speak("Your Name Has Been Changed Sir")
                     speak(f"Your Old Name Was {name}")
@@ -92,6 +97,7 @@ def getName(startupcall=True):  # if startupcall is False it means user want to 
 
                 name = tname
                 break
+                
             elif(confirm == "no"):
                 speak("Sorry Sir,Asking Again!!")
                 speak("Please Tell Again,What's Your Name Sir?")
@@ -107,10 +113,11 @@ name = "Sir"  # Setting Default Name as Sir
     Taking User's Name and Greeting Welcome
 """
 
-getName()
+setName()
 
 speak(f"Welcome {name} Sir")
 wishMe()
+
 while(True):
 
     query = takeCommand().lower()
@@ -128,36 +135,45 @@ while(True):
                 speak(results)
             except Exception as e:
                 speak("Unable to understand,Please Say That Again")
+                
     elif "open youtube" in query:
         webbrowser.open("youtube.com")
         speak("Please Wait....")
         speak("Opening YouTube Sir....")
+        
     elif "open google" in query:
         webbrowser.open("google.com")
         speak("Please Wait....")
         speak("Opening Google Sir....")
+        
     elif "open stackoverflow" in query or "open stack overflow" in query:
         webbrowser.open("stackoverflow.com")
         speak("Please Wait....")
         speak("Opening Stackoverflow Sir....")
+        
     elif "play music" in query:
         musicdir = "C:\\Users\\BHERULALJOSHI\\Music\\DemoMusicPython"
         songs = os.listdir(musicdir)
         speak(f"Playing {songs[0]}....")
+        
         os.startfile(os.path.join(musicdir, songs[0]))
     elif "the time" in query:
         strTime = datetime.datetime.now().strftime("%H:%M:%S")
         speak(f"Sir The Time Is {strTime}")
+        
     elif "open code" in query or "open visual studio code" in query:
         codepath = "D:\\Users\\BHERULALJOSHI\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
         speak("Opening Visual Studio Code....")
         os.startfile(codepath)
+        
     elif "what's my name" in query or "what is my name" in query or "do you know my name" in query:
         speak("I remember your name sir")
         speak(f"Your name is {name}")
+        
     elif "change my name" in query or "change name" in query:
         speak("Ok Sir")
-        getName(startupcall=False)
+        setName(startupcall=False) #startupcall=False Because User Wants to Change The Username
+        
     elif "who made you" in query or "owner of you" in query or "who created you" in query or "founder of you" in query:
         speak("Ganesh Joshi aka GJ is the developer of GJ's Voice Assistant")
         speak("Ganesh Joshi Created Me To Help Users")
