@@ -1,4 +1,4 @@
-# voiceassistant
+# GJ's Voice Assistant
 GJ's Voice Assistant - I Made This Voice Assistant In Python 3 Using Google's Speech Recognition API
 
 At First Voice Assistant Will Ask Your Name Then It Will Greet You According to Current Time Like Good Morning, Good Afternoon or Good Evening.
